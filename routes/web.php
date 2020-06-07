@@ -13,5 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/','TodoController@index');
-Route::get('/test','TodoController@test');
+Route::get('/', 'TodoController@index')->name('index');
+Route::post('/create', 'TodoController@create')->name('create');
+Route::post('/delete', 'TodoController@delete')->name('delete');
+Route::post('/finish', 'TodoController@finish')->name('finish');
+Route::post('/refinish', 'TodoController@refinish')->name('refinish');
