@@ -16,5 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'TodoController@index')->name('index');
 Route::post('/create', 'TodoController@create')->name('create');
 Route::post('/delete', 'TodoController@delete')->name('delete');
-Route::post('/finish', 'TodoController@finish')->name('finish');
-Route::post('/refinish', 'TodoController@refinish')->name('refinish');
+Route::post('/done', 'TodoController@done')->name('done');
+Route::post('/restore', 'TodoController@restore')->name('restore');

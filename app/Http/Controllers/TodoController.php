@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Todolists;
+use App\Http\Requests\CreateTodo;
+use App\Http\Requests\DeleteTodo;
+use App\Http\Requests\DoneTodo;
+use App\Http\Requests\RestoreTodo;
+use App\Models\Todos;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
@@ -13,52 +17,43 @@ class TodoController extends Controller
     //
     public function index()
     {
-        $todolist = Todolists::all();
-        return view('index', ['todolist' => $todolist]);
+        $todolist = Todos::all();
+        return view('index', compact('todolist'));
     }
 
-    public function create(Request $request)
+    public function create(CreateTodo $request)
     {
         $todo = $request->input('todo');
-        if (!$todo) {
-            return redirect()->route('index')->with('error', '追加するtodoを入力してください。');
-        }
 
-        Todolists::create(['todo' => $todo]);
+        Todos::create(compact('todo'));
         return redirect(\route('index'));
     }
 
-    public function delete(Request $request)
+    public function delete(DeleteTodo $request)
     {
-        $todo_list = $request->input('select_todo');
-        if (count($todo_list) == 0) {
-            return redirect()->route('index')->with('error', '削除するtodoを選択してください。');
-        }
-        $list = Todolists::whereIn('id', $todo_list);
+        $todoList = $request->input('select_todo');
+
+        $list = Todos::whereIn('id', $todoList);
         $list->delete();
 
         return redirect(\route('index'));
     }
 
-    public function finish(Request $request)
+    public function done(DoneTodo $request)
     {
-        $todo_list = $request->input('select_todo');
-        if (count($todo_list) == 0) {
-            return redirect()->route('index')->with('error', '完了するtodoを選択してください。');
-        }
-        $list = Todolists::whereIn('id', $todo_list);
-        $list->update(['finished' => 1]);
+        $todoList = $request->input('select_todo');
+
+        $list = Todos::whereIn('id', $todoList);
+        $list->update(['completed_at' => date('Y-m-d')]);
         return redirect(\route('index'));
     }
 
-    public function refinish(Request $request)
+    public function restore(RestoreTodo $request)
     {
-        $todo_list = $request->input('select_todo');
-        if (count($todo_list) == 0) {
-            return redirect()->route('index')->with('error', '完了を取り消しするtodoを選択してください。');
-        }
-        $list = Todolists::whereIn('id', $todo_list);
-        $list->update(['finished' => 0]);
+        $todoList = $request->input('select_todo');
+
+        $list = Todos::whereIn('id', $todoList);
+        $list->update(['completed_at' => null]);
         return redirect(\route('index'));
     }
 

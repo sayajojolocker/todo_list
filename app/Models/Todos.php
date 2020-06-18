@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Todolists extends Model
+class Todos extends Model
 {
     //
-    protected $table = 'todolists';
+    protected $table = 'todos';
     protected $guarded = [];
 }

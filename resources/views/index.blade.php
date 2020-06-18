@@ -19,6 +19,15 @@
             <input type="text" name="todo" value="">
         </div>
     </form>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     @if (session('error'))
         <p class="text-danger mt-3">
             {{ session('error') }}
@@ -29,10 +38,10 @@
         @csrf
         <div>
             <input type="submit" class="btn btn-danger" value="削除" formaction={{route('delete')}}>
-            <input type="submit" class="btn btn-warning" value="完了" formaction={{route('finish')}}>
-            <input type="submit" class="btn btn-info" value="完了取消" formaction={{route('refinish')}}>
+            <input type="submit" class="btn btn-warning" value="完了" formaction={{route('done')}}>
+            <input type="submit" class="btn btn-info" value="完了取消" formaction={{route('restore')}}>
             @foreach ($todolist as $item)
-                <li><input type="checkbox" name="select_todo[]" value={{$item['id']}}>@if($item['finished'] == 1)<del>@endif{{ $item['todo'] }}@if($item['finished'] == 1)</del>@endif</li>
+                <li><input type="checkbox" name="select_todo[]" value={{$item['id']}}>@if(isset($item['completed_at']))<del>@endif{{ $item['todo'] }}@if(isset($item['completed_at']))</del>@endif</li>
             @endforeach
         </div>
     </form>
