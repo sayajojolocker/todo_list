@@ -24,20 +24,20 @@ class RestoreTodo extends FormRequest
     public function rules()
     {
         return [
-            'select_todo' => 'required',
+            'todoIds' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'select_todo.required' => '完了を取り消しする:attributeを選択してください',
+            'todoIds.required' => '完了を取り消しする:attributeを選択してください',
         ];
     }
 
     public function attributes()
     {
         return [
-            'select_todo' => 'ToDo',
+            'todoIds' => 'ToDo',
         ];
     }}

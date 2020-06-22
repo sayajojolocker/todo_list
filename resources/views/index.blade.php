@@ -41,7 +41,7 @@
             <input type="submit" class="btn btn-warning" value="完了" formaction={{route('done')}}>
             <input type="submit" class="btn btn-info" value="完了取消" formaction={{route('restore')}}>
             @foreach ($todolist as $item)
-                <li><input type="checkbox" name="select_todo[]" value={{$item['id']}}>@if(isset($item['completed_at']))<del>@endif{{ $item['todo'] }}@if(isset($item['completed_at']))</del>@endif</li>
+                <li><input type="checkbox" name="todoIds[]" value={{$item['id']}}>@if(isset($item['completed_at']))<del>@endif{{ $item['todo'] }}@if(isset($item['completed_at']))</del>@endif</li>
             @endforeach
         </div>
     </form>

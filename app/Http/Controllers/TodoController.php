@@ -31,9 +31,9 @@ class TodoController extends Controller
 
     public function delete(DeleteTodo $request)
     {
-        $todoList = $request->input('select_todo');
+        $todoIds = $request->input('todoIds');
 
-        $list = Todos::whereIn('id', $todoList);
+        $list = Todos::whereIn('id', $todoIds);
         $list->delete();
 
         return redirect(\route('index'));
@@ -41,18 +41,18 @@ class TodoController extends Controller
 
     public function done(DoneTodo $request)
     {
-        $todoList = $request->input('select_todo');
+        $todoIds = $request->input('todoIds');
 
-        $list = Todos::whereIn('id', $todoList);
+        $list = Todos::whereIn('id', $todoIds);
         $list->update(['completed_at' => date('Y-m-d')]);
         return redirect(\route('index'));
     }
 
     public function restore(RestoreTodo $request)
     {
-        $todoList = $request->input('select_todo');
+        $todoIds = $request->input('todoIds');
 
-        $list = Todos::whereIn('id', $todoList);
+        $list = Todos::whereIn('id', $todoIds);
         $list->update(['completed_at' => null]);
         return redirect(\route('index'));
     }

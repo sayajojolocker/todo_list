@@ -24,21 +24,21 @@ class DoneTodo extends FormRequest
     public function rules()
     {
         return [
-            'select_todo' => 'required',
+            'todoIds' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'select_todo.required' => '完了する:attributeを選択してください',
+            'todoIds.required' => '完了する:attributeを選択してください',
         ];
     }
 
     public function attributes()
     {
         return [
-            'select_todo' => 'ToDo',
+            'todoIds' => 'ToDo',
         ];
     }
 }
